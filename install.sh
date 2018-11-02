@@ -34,5 +34,7 @@ sudo systemctl status doorsensor.service
 echo "sleeping for 10 then system reboot.\nService should start automatically"
 sleep 10
 
+sudo reboot
+
 
 
