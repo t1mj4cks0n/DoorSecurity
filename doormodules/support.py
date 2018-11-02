@@ -132,21 +132,24 @@ def sendEmail(timenow,file,filepath):
 def scpCopy(filepath,remote_user,remote_host,destpath): 
 	# used to send one file to a remote host, requires password
 	import paramiko
-	ssh = paramiko.SSHClient()
-	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-	ssh.connect(remote_host, username=remote_user, password=remote_passwd)
-	writeScpLog(filepath,remote_user,remote_host,destpath)
-	printdebug("connected to {}@{} successfully!".format(remote_user,remote_host))
-	try:
-		sftp = ssh.open_sftp() 
-		sftp.put(filepath, destpath) 
-		sftp.close() 
-		print "copied successfully!"
-		return True
-	except:
-		print "copy failure"
-		printdebug("failed scp to {}@{}, file {} was not sent!".format(remote_user,remote_host,filepath))
-
+	if remote_setup == True:
+		ssh = paramiko.SSHClient()
+		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		ssh.connect(remote_host, username=remote_user, password=remote_passwd)
+		writeScpLog(filepath,remote_user,remote_host,destpath)
+		printdebug("connected to {}@{} successfully!".format(remote_user,remote_host))
+		try:
+			sftp = ssh.open_sftp() 
+			sftp.put(filepath, destpath) 
+			sftp.close() 
+			print "copied successfully!"
+			return True
+		except:
+			print "copy failure"
+			printdebug("failed scp to {}@{}, file {} was not sent!".format(remote_user,remote_host,filepath))
+	else:
+		printdebug("remote backup disabled")
+		
 def moveFile(srcpath,destpath):
 	# used to move one file to another directory
 	import subprocess
@@ -249,7 +252,7 @@ def getLatestFile(timenow):
 	else:
 		printdebug("{} does not exist".fomrat(srcDir))
 	# if within notification time, send email
-	if notifyTimeCheck() == True:
+	if notifyTimeCheck() == True and email_setup == True:
 		printdebug("{} will be put into sendEmail".format(srcfullpath))
 		try:
 			printdebug("Writing Email")
@@ -258,7 +261,7 @@ def getLatestFile(timenow):
 		except:
 			printdebug("{} could not be sent to {}".format(srcfullpath,notify_email))
 	# if connection can be made to remote server scp latest file
-	if remoteConn() == True:
+	if remoteConn() == True and remote_setup == True:
 		if scpCopy(srcfullpath,remote_user,remote_host,remotepath) == True:
 			try:
 				moveFile(srcfullpath,archivepath)

@@ -37,6 +37,9 @@ notify_runtime = int("23")
 #-----------------------------------------------------------------------------------#
 #                           		 EMAIL SETUP
 #-----------------------------------------------------------------------------------#
+#;; enable to allow email notifications
+email_setup = False
+
 #;; change this to the email address you want notifications going to
 #notify_email = "emailname@emaildomain"
 notify_email = "emailtonotify@emaildomain"
@@ -47,12 +50,15 @@ smtp_port = 587 # this is the port your email domain server uses
 
 #;; change this to the email address you want notifications being sent from
 from_email = "emailname@emaildomain"
-from_passwd = "enteremail password here"
+from_passwd = "enter email password here"
 
 
 #-----------------------------------------------------------------------------------#
 #                            REMOTE SERVER CONECTION SETTINGS
 #-----------------------------------------------------------------------------------#
+#;; enable the connection to remote host to get backups
+remote_setup = False
+
 #;; change this for the ip or hostname of the remote server you want to copy
 #;; files too
 remote_user = "<username>"
