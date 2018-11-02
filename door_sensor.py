@@ -35,7 +35,7 @@ def main():
             print State
             timenow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             support.recordCamera(timenow)
-            support.getLatestFile(timenow)
+            support.notifyOwner(timenow)
             logentry(State,timenow)
 
         elif (Open != Closed):
