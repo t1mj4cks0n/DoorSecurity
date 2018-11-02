@@ -14,9 +14,9 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(remote_host, username=remote_user, password=remote_passwd)
 
-print "connected successfully!"
+print "connected!"
 
 sftp = ssh.open_sftp() 
 sftp.put(filepath, destpath) 
 sftp.close() 
-print "copied successfully!"
+print "copied!"
