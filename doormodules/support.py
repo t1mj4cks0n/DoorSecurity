@@ -167,6 +167,8 @@ def moveFile(srcpath,destpath):
 
 def writeScpLog(srcfile,remote_user,remote_host,destpath): 
 	#used to write the line format for the scp log
+	createLogsDir()
+	createScpLogs()
 	print "writing to scp_log..."
 	line = "at {}, {} was copied to {}@{}:{}".format(getTime(),srcfile,remote_user,remote_host,destpath)
 	file = open(scplogspath, "a")
@@ -175,6 +177,8 @@ def writeScpLog(srcfile,remote_user,remote_host,destpath):
 
 def writeDebugLog(message): 
 	# used to write the line format for the debug log
+	createLogsDir()
+	createDoorLogs()
 	file = open(debuglogs, "a")
 	line = {"time": getTime(), "DEBUG":message}
 	file.write("\n" + str(line))
@@ -182,6 +186,8 @@ def writeDebugLog(message):
 
 def writeFile(state,timenow): 
 	# used to write the file format for the door log
+	createLogsDir()
+	createDebugLogs()
 	file = open(doorlogspath, "a")
 	line = {"time ": timenow, "State ": state}
 	file.write("\n" + str(line))
@@ -203,15 +209,24 @@ def recordCamera(timenow):
 	else:
 		printdebug("Not within camera recording hours")
 
+def createLogsDir():
+	import os 
+	if not os.path.exists(alllogspath):
+		mkpath = "mkdir"
+		subprocess.Popen('%s %s' %(mkpath,alllogspath), shell=True)
+		printdebug("Directory " + alllogspath + " created!")
+	else:
+		printdebug("Directory " + alllogspath + " already exists!")
+
 def createDoorLogs(): 
 	# use to create log file
 	import os
 	if not os.path.exists(doorlogspath):
 		file = open(doorlogspath, "w")
 		file.close()
-		printdebug("Directory " + doorlogspath + " created!")
+		printdebug("File " + doorlogspath + " created!")
 	else:
-		printdebug("Directory " + doorlogspath + " already exists!") 
+		printdebug("File " + doorlogspath + " already exists!") 
 
 def createScpLogs(): 
 	# use to create log file
@@ -219,9 +234,9 @@ def createScpLogs():
 	if not os.path.exists(scplogspath):
 		file = open(scplogspath, "w")
 		file.close()
-		printdebug("Directory " + scplogspath + " created!")
+		printdebug("File " + scplogspath + " created!")
 	else:
-		printdebug("Directory " + scplogspath + " already exists!") 
+		printdebug("File " + scplogspath + " already exists!") 
 
 def createDebugLogs():
 	# use to create log file
@@ -229,9 +244,9 @@ def createDebugLogs():
 	if not os.path.exists(debuglogs):
 		file = open(debuglogs, "w")
 		file.close()
-		printdebug("Directory " + debuglogs + " created!")
+		printdebug("File " + debuglogs + " created!")
 	else:
-		printdebug("Directory " + debuglogs + " already exists!") 
+		printdebug("File " + debuglogs + " already exists!") 
 
 def sleepWait():
 	# used to set the sleep time between start recording and sending email

@@ -87,6 +87,9 @@ connection_timeout = 3
 #-----------------------------------------------------------------------------------#
 #                LOCAL HOST DIRECTORY SETTINGS /DoorSecurity
 #-----------------------------------------------------------------------------------#
+#;; change this to the full directory path for the logs
+alllogspath = "/home/{}/DoorSecurity/logs/".format(host_user)
+
 #;; change this to the full path of the door state log
 doorlogspath = "/home/{}/DoorSecurity/logs/door_log".format(host_user)
 
