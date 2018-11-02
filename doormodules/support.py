@@ -19,6 +19,7 @@ def printdebug(message):
 
 def isOpen(remote_host,remote_port): 
 	# this is used to connect to the remote server
+	printdebug("checking connection to {} on port{} and waiting for results".format(remote_host,remote_port))
 	import socket
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.settimeout(connection_timeout)
@@ -33,7 +34,7 @@ def isOpen(remote_host,remote_port):
 
 def checkHost(remote_host, remote_port):
 	# this is used to attempt conenctions to remote host
-	printdebug(" part 2 checking connection to {}@{}".format(remote_user,remote_host))
+	printdebug("checking connection profile: {}@{}".format(remote_user,remote_host))
 	ipup = False
 	for i in range(connection_retry):
 		if isOpen(remote_host, remote_port):
@@ -45,13 +46,16 @@ def checkHost(remote_host, remote_port):
 
 def remoteConn(): 
 	# this is used to check the connection state on the remote server
-	printdebug(" part 1 checking connection to {}@{}".format(remote_user,remote_host))
-	if checkHost(remote_host,remote_port) == True:
-		printdebug("connection success to {} on {}".format(remote_host,remote_port))
-		return True
+	if remote_setup == True
+		printdebug("creating connection profile: {}@{}".format(remote_user,remote_host))
+		if checkHost(remote_host,remote_port) == True:
+			printdebug("connection success to {} on {}".format(remote_host,remote_port))
+			return True
+		else:
+			printdebug("connection failure to {} on {}".format(remote_host,remote_port))
+			return False
 	else:
-		printdebug("connection failure to{} on {}".format(remote_host,remote_port))
-		return False
+		printdebug("remote connection disabled")
 
 def recordTimeCheck(): 
 	# this is used to check the times set in the config file to current time for recording
@@ -132,7 +136,7 @@ def sendEmail(timenow,file,filepath):
 def scpCopy(filepath,remote_user,remote_host,destpath): 
 	# used to send one file to a remote host, requires password
 	import paramiko
-	if remote_setup == True:
+	if remoteConn() == True:
 		ssh = paramiko.SSHClient()
 		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 		ssh.connect(remote_host, username=remote_user, password=remote_passwd)
@@ -235,11 +239,12 @@ def sleepWait():
 	printdebug("Sleeping for {}, to allow the camera to finish recording".format(cam_runtime))
 	time.sleep(int(cam_runtime))
 
-def getLatestFile(timenow):
+def NotifyOwner(timenow):
 	# used to find the latest file saved after recording
 	import glob
 	import os
 
+	
 	sleepWait()
 	# get the latest file saved
 	if os.path.exists(srcDir):
@@ -251,17 +256,22 @@ def getLatestFile(timenow):
 		printdebug("{} is the srcfullpath".format(srcfullpath))
 	else:
 		printdebug("{} does not exist".fomrat(srcDir))
-	# if within notification time, send email
-	if notifyTimeCheck() == True and email_setup == True:
-		printdebug("{} will be put into sendEmail".format(srcfullpath))
-		try:
-			printdebug("Writing Email")
-			sendEmail(timenow,basefile,srcfullpath)
-			printdebug("{} was emailed to {}".format(srcfullpath,notify_email))
-		except:
-			printdebug("{} could not be sent to {}".format(srcfullpath,notify_email))
-	# if connection can be made to remote server scp latest file
-	if remoteConn() == True and remote_setup == True:
+
+	# NOTIFY OWNER VIA EMAIL
+	if notifyTimeCheck() == True:
+		if email_setup == True:
+			printdebug("{} will be put into sendEmail".format(srcfullpath))
+			try:
+				printdebug("Writing Email")
+				sendEmail(timenow,basefile,srcfullpath)
+				printdebug("{} was emailed to {}".format(srcfullpath,notify_email))
+			except:
+				printdebug("{} could not be sent to {}".format(srcfullpath,notify_email))
+		else:
+			printdebug("Email notifications disabled")
+
+	# SCP FILE TO OWNER
+	if remoteConn() == True: # remote connection also checks remote setup
 		if scpCopy(srcfullpath,remote_user,remote_host,remotepath) == True:
 			try:
 				moveFile(srcfullpath,archivepath)
