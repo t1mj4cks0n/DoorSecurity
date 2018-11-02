@@ -19,8 +19,10 @@ sudo cp /home/pi/DoorSecurity/confs/start_door_sensor.bash /root/start_door_sens
 sudo chmod +x /root/start_door_sensor.bash
 
 # create first time logs
+mkdir /home/pi/DoorSecurity/logs/
 cd /home/pi/DoorSecurity/logs/
 touch debugs_logs door_logs scp_logs
+mkdir vids archives
 
 # script permissions
 cd /home/pi/DoorSecurity/shscripts/
