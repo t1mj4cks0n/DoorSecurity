@@ -183,6 +183,42 @@ setting up hardware
 Installation:
 ---------------------------------------------
 
+log in with your new password
+
+check internet connectivity
+
+commands
+
+	sudo apt update && sudo apt upgrade -y
+
+	sudo apt install git-core -y
+
+	cd /home/pi/
+
+	git clone https://github.com/t1mj4cks0n/DoorSecurity
+
+	cd DoorSecurity/
+
+	sudo bash install.sh
+
+		setting up paramiko repo will take a while (paramiko credit to = paramiko, this is not owned byme)
+
+		the screen will pause displaying if the sensor is running after that it will reboot
+
+	should display doorsensor.service active
+
+after reboot you will have to configure the program:
+	
+	nano /home/pi/DoorSecurity/doormodules/config.py
+
+	
+
+
+
+
+
+
+
 
 
 
