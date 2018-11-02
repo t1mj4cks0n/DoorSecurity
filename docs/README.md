@@ -37,14 +37,8 @@ Guide will include how to setup your raspberry pi 3 without monitor or keyboard
 	-winscp
 
 -linux based remote-server to backup recordings into (I used a ubuntu server running plex to view my content)
+- you can disable a backup host in the config files
 
-
------------------------------------------------------------------------------------------------------------------------------------
-What you will learn
------------------------------------------------------------------------------------------------------------------------------------
--pi setup without a keyboard or monitor, using local network and SSH
-
--GPIO setup (very basic!)
 
 
 -----------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +59,7 @@ open disk management
 
 	>delete both volumes
 
-	>add new simple drive to the sd card, doesnt matter what the win32diskimager will take care of the rest
+	>add new simple volume to the sd card, doesnt matter whats its called, win32diskimager will take care of the rest
 
 open win32diskimager
 
@@ -79,15 +73,19 @@ open win32diskimager
 
 	wait for imager to finish! (whilst this is installing, download putty and nmap; if youre on a windows machine)
 
+	after its finish windows will throw up some pop up asking to format the drive, DO NOT CLICK YES, jsut close it down
+
 once installation is finished close win32diskimager down
 
-open boot("#") in a folder
+open boot("#") in a file explorer
 
-	>in here you need to insert a file called ssh.txt
+	in here you need to insert a file called ssh.txt, to do that:
 
 	open notepad (windows) or touch /pathtobootvolume/ssh(linux):
 
 		>save empty file to boot ("#") and name it ssh.txt
+
+		>check the boot folder for the file and confirm its file extension.
 
 		this will enable ssh from boot!
 
@@ -108,14 +106,63 @@ if you dont have an ethernet cable for the pi, you can use wifi from boot too
 
     save as "wpa_supplicant.conf"(windows) or ctrl+x and save as "wpa_supplicant.conf"(linux)
 
-you can now safely remove the sd card and insert it into the pi
+    safely eject the sd card 
+
+setting up hardware
+---------------------------------------------
+	
+	camera needs to be plugged into usb 
+	check here to see if your webcam is compatible: https://elinux.org/RPi_USB_Webcams
+
+	door sensor, is a circuit from GPIO 18 (pcm_clock) looped round to the ground pin on 6
+
+	the script works like this, 
+
+		if the circuit is complete from pin to ground then this means the door is closed
+
+		if the circuit in uncomplete from the pin to ground then this means the door is open
+
+		for this to work is create a circuit where it is complete when a door is closed,
+		when the door opens itll break the circuit.
+
+		paperclip seems to work fine
+		probably best to use a magnetic door sensor
+
+insert the sd card into the pi
 
 then plug in your ethernet cable(if exists) and then plug in your power supply
+
+wait for pi to load up
 
 find your pi on the network
 
 	using zenmap on windows you can scan your local network to find your pi's ip address (network/subnetmask:192.168.1.0/24)
-	once you found your network
+
+	if you dont know your network info do this:
+
+	windows button or search bar > "cmd" > open command prompt > type in "ipconfig"
+
+		find your network adapter and note down this:
+
+			IPv4 address: X.X.X.X i.e. 192.168.1.43
+			subnetmask  : 255.X.X.X i.e most common is 255.255.255.0
+
+			go to http://www.subnet-calculator.com/
+
+			enter your IPv4 address into IP address box
+			enter your subnetmask into the subnet mask box
+			then click on the webpage and the screens should refresh with your details changing it
+
+			notedown this info from the site
+
+			SubnetID and Mask Bits
+			i.e. 192.166.1.0 and 24
+			add them together and you get 192.168.1.0/24 
+			once you know what youve worked your out as remember it and input this into zenmap
+
+
+
+	once you know your network
 	open zenmap type in your network (in my case its 192.168.10.0/24) then on the profile select ping scan and click SCAN:
 
 	look through the list of ips on your network and look for the one with the vendor id as Raspberry Pi Foundation
@@ -142,42 +189,21 @@ ssh putty terminal will now start:
 
 		>sudo passwd pi
 
-		>enter the new password for your pi and confirm it has changed
+		>enter the new password for your pi and confirm it is successful
 
 	then do this (monkey see monkey doo):
 
 		>sudo raspi-config
 
-		>go to Advanced > expand filesystem > ENTER
+		>go to Advanced Options > expand filesystem > ENTER
 
-		>go to interfacing options > I2C enable > yes 
+		>go to interfacing options > I2C enable > yes (you will need this for any future GPIO projects)
 
 		>optional : network options > hostname > ok > [enternewhostname] > ok
 
-		please dont change the the username from pi!!!
-		my package relies on the pi name remaining the same, new versiosn this will change!!!
-
 		>tab to finish > reboot YES.
 
-setting up hardware
----------------------------------------------
-	
-	camera needs to be plugged into usb 
-	check here to see if your webcam is compatible: https://elinux.org/RPi_USB_Webcams
-
-	door sensor, is a circuit from GPIO 18 (pcm_clock) looped round to the ground pin on 6
-
-	the script works like this, 
-
-		if the circuit is complete from pin to ground then this means the door is closed
-
-		if the circuit in uncomplete from the pin to ground then this means the door is open
-
-		for this to work is create a circuit where it is complete when a door is closed,
-		when the door opens itll break the circuit.
-
-		paperclip seems to work fine
-		probably best to use a magnetic door sensor
+	your connection on putty will drop, close it down and re attempt after about 10 seconds
 
 
 Installation:
@@ -185,7 +211,7 @@ Installation:
 
 log in with your new password
 
-check internet connectivity
+check internet connectivity with ping 8.8.8.8 then ctrl + c
 
 commands
 
