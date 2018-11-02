@@ -239,7 +239,7 @@ def sleepWait():
 	printdebug("Sleeping for {}, to allow the camera to finish recording".format(cam_runtime))
 	time.sleep(int(cam_runtime))
 
-def NotifyOwner(timenow):
+def notifyOwner(timenow):
 	# used to find the latest file saved after recording
 	import glob
 	import os
