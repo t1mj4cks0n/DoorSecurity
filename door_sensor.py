@@ -6,7 +6,6 @@ from doormodules import support
 # setting import module names
 logentry = support.writeFile 
 printdebug = support.printdebug
-timenow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # creating logs if they dont already exist
 support.createLogsdir()
@@ -20,8 +19,7 @@ DOOR_SENSOR_PIN = 18    # setting GPIO pin to 18 which circuits round to a groun
 GPIO.setup(DOOR_SENSOR_PIN, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 print "GPIO pins setup\nDoor Sensor now ready"
-printdebug("door_sensor.py started at {}".format(timenow))
-
+printdebug("door_sensor.py started ")
 
 def main():
     Open = None
