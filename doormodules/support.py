@@ -46,7 +46,7 @@ def checkHost(remote_host, remote_port):
 
 def remoteConn(): 
 	# this is used to check the connection state on the remote server
-	if remote_setup == True
+	if remote_setup == True:
 		printdebug("creating connection profile: {}@{}".format(remote_user,remote_host))
 		if checkHost(remote_host,remote_port) == True:
 			printdebug("connection success to {} on {}".format(remote_host,remote_port))
