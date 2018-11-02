@@ -211,7 +211,9 @@ after reboot you will have to configure the program:
 	
 	nano /home/pi/DoorSecurity/doormodules/config.py
 
-	
+	key feautures will run disabled optherwise
+
+
 
 
 
