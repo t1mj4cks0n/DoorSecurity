@@ -1,4 +1,5 @@
 
+#use this to test the email attachments work
 import os, sys, time
 parentPath = os.path.abspath("..")
 if parentPath not in sys.path:
