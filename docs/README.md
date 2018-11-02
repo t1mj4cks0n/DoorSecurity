@@ -61,21 +61,21 @@ windows search for disk management
 
 open disk management
 
-	locate the 2 partitions currently on the sd card (boot, partition)
+	>locate the 2 partitions currently on the sd card (boot, partition)
 
-	delete both volumes
+	>delete both volumes
 
-	add new simple drive to the sd card, doesnt matter what the win32diskimager will take care of the rest
+	>add new simple drive to the sd card, doesnt matter what the win32diskimager will take care of the rest
 
 open win32diskimager
 
-	select in the drop box your sd cards device character
+	>select in the drop box your sd cards device character
 
-	in the image file locate the raspbian image you wish to install on  the sd card
+	>in the image file locate the raspbian image you wish to install on  the sd card
 
-	once confirming the right drive and file
+	once confirming the right drive and file:
 
-	click write
+	>click write
 
 	wait for imager to finish! (whilst this is installing, download putty and nmap; if youre on a windows machine)
 
@@ -83,13 +83,13 @@ once installation is finished close win32diskimager down
 
 open boot("#") in a folder
 
-	in here you need to insert a file called ssh.txt
+	>in here you need to insert a file called ssh.txt
 
-	open notepad (windows) or touch /pathtobootvolume/ssh(linux)
+	open notepad (windows) or touch /pathtobootvolume/ssh(linux):
 
-		save empty file to boot ("#") and name it ssh.txt
+		>save empty file to boot ("#") and name it ssh.txt
 
-		this will enable ssh from boot
+		this will enable ssh from boot!
 
 if you dont have an ethernet cable for the pi, you can use wifi from boot too
 
@@ -130,34 +130,34 @@ Setting up the pi:
 
 using putty type in the ip address of the Rpi in the hostname box, leave port as 22 and click open:
 
-	click YES on the pop up box
+	>click YES on the pop up box
 
-	ssh putty terminal will now start
+ssh putty terminal will now start:
 
-	login as "pi"
+	>login as "pi"
 
-	password is "raspberry"
+	>password is "raspberry"
 
-	first thing on a new raspbian instal, is this command
+	first thing on a new raspbian install, is this command:
 
-		sudo passwd pi
+		>sudo passwd pi
 
-		enter the new password for your pi and confirm it has changed
+		>enter the new password for your pi and confirm it has changed
 
-	then do this (monkey see monkey doo)
+	then do this (monkey see monkey doo):
 
-		sudo raspi-config
+		>sudo raspi-config
 
-		go to Advanced > expand filesystem > ENTER
+		>go to Advanced > expand filesystem > ENTER
 
-		go to interfaceing options > I2C enable > yes 
+		>go to interfacing options > I2C enable > yes 
 
-		optional : network options > hostname > ok > [enternewhostname] > ok
+		>optional : network options > hostname > ok > [enternewhostname] > ok
 
-		please dont change the the username from pi
-		my package relies on the pi name remaining the same, new versiosn this will change
+		please dont change the the username from pi!!!
+		my package relies on the pi name remaining the same, new versiosn this will change!!!
 
-		tab to finish > reboot YES.
+		>tab to finish > reboot YES.
 
 setting up hardware
 ---------------------------------------------
@@ -189,29 +189,58 @@ check internet connectivity
 
 commands
 
-	sudo apt update && sudo apt upgrade -y
+	>sudo apt update && sudo apt upgrade -y
 
-	sudo apt install git-core -y
+	>sudo apt install git-core -y
 
-	cd /home/pi/
+	>cd /home/pi/
 
-	git clone https://github.com/t1mj4cks0n/DoorSecurity
+	>git clone https://github.com/t1mj4cks0n/DoorSecurity
 
-	cd DoorSecurity/
+	>cd DoorSecurity/
 
-	sudo bash install.sh
+	>sudo bash install.sh
 
 		setting up paramiko repo will take a while (paramiko credit to = paramiko, this is not owned byme)
 
 		the screen will pause displaying if the sensor is running after that it will reboot
 
-	should display doorsensor.service active
+	should display doorsensor.service active!!!
 
 after reboot you will have to configure the program:
 	
-	nano /home/pi/DoorSecurity/doormodules/config.py
+	>nano /home/pi/DoorSecurity/doormodules/config.py
 
-	key feautures will run disabled optherwise
+	key feautures will run disabled otherwise and debugging will be switched on
+
+	if you have a google account you are sending files from do this:
+
+		>go to google accounts and sign in with your from email address
+
+		>turn on allow access to less secure apps
+
+		if that dont work do this:
+
+			>enable 2 step verification for that email you are sending from
+
+			>go to app passwords
+
+			>create a new password for that device
+
+			note down the 16 digit password and enter that into the password section in the config file
+
+	once the config file is filled out with how you want to use this program the script should run fine
+
+
+How I use this program
+
+the trigger is setup on my home study door, with the pi running in a cupboard and a camera resting on the
+cupboard facing the door.
+the script is always running in the back ground as a service so no need for me to remember to turn it on or had forget to turn it on when it was needed.
+ive set the recording hours between midnight running for 17 hours, so anyone entering my study between 0000 hours and 1700 hours will get recorded. i dont want recordings out of them hours as they are the hours i use my study.
+ive set my notification hours from 8 in the morning for 9 hours, so anyone entering my study between 0800hours and 1700hours I will get emailed a notification with the file as an attachment immediately. ive set up email notifications from the pi as a VIP contact meaning i will be notiied even with do no disturb set on my phone. i dont want notifying during the night as i dont want to be woken.
+
+
 
 
 
