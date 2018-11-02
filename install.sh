@@ -1,7 +1,5 @@
 #!/bin/sh
-sudo apt update
-sudo apt upgrade -y
-sudo apt install python-dev python-rpi.gpio git git-core -y
+sudo apt install python-dev python-rpi.gpio -y
 sudo apt install ffmpeg python-pip -y
 sudo pip install pip-update
 sudo pip install setuptools wheels
@@ -24,9 +22,9 @@ cd /home/pi/DoorSecurity/logs/
 touch debugs_logs door_logs scp_logs
 mkdir vids archives
 
-# script permissions
-cd /home/pi/DoorSecurity/shscripts/
-chmod +x *.sh
+# script permission
+cd /home/pi/DoorSecurity/
+sudo chmod +x recordcamera.sh
 
 #start services
 sudo system daemon-reload
