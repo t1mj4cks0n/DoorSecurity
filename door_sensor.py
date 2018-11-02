@@ -9,6 +9,7 @@ printdebug = support.printdebug
 timenow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # creating logs if they dont already exist
+support.createLogsdir()
 support.createDoorLogs()
 support.createScpLogs()
 support.createDebugLogs()

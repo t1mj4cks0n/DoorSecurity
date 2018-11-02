@@ -24,6 +24,10 @@ cd /home/pi/DoorSecurity
 cp setup.sh /docs/setup.sh
 bash setup.sh
 
+# script permission
+cd /home/pi/DoorSecurity/
+sudo chmod +x recordcamera.sh
+
 #start services
 sudo system daemon-reload
 sudo systemctl enable doorsensor.service
