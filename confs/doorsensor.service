@@ -1,0 +1,11 @@
+[Unit]
+Description=Start Door Sensor
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/root/start_door_sensor.bash
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target

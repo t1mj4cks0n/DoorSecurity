@@ -1,0 +1,3 @@
+known bugs
+
+close time in wrong as CLOSED isnt logged until open process is finished which could take up to a minute
