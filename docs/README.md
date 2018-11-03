@@ -226,6 +226,8 @@ commands
 
 	>sudo bash install.sh
 
+		enter your username at the start of this script. if your name is pi then enter pi
+
 		setting up paramiko repo will take a while (paramiko credit to = paramiko, this is not owned byme)
 
 		after it has finished intalling you will end up in the config file where you can edit it to your requirements
