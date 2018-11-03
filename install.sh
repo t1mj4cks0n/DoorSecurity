@@ -36,8 +36,8 @@ cd /home/$username/DoorSecurity
 sudo python door_sensor.py
 EOF
 su - $username -c "mkdir /home/$username/DoorSecurity/logs"
-cd /home/$username/DoorSecurity/logs
-su - $username -c "mkdir archives/ vids/"
+su - $username -c "mkdir /home/$username/DoorSecurity/logs/archives"
+su - $username -c "mkdir /home/$username/DoorSecurity/logs/vids"
 cd /home/$username/DoorSecurity/
 su - $username -c "chmod +x recordcamera.sh"
 sleep 5
