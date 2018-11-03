@@ -24,6 +24,7 @@ cat <<EOF >/root/start_door_sensor.bash
 cd /home/$username/DoorSecurity
 sudo python door_sensor.py
 EOF
+chmod +x /root/start_door_sensor.bash
 su - $username -c "mkdir /home/$username/DoorSecurity/logs"
 su - $username -c "mkdir /home/$username/DoorSecurity/logs/archives"
 su - $username -c "mkdir /home/$username/DoorSecurity/logs/vids"
