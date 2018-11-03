@@ -34,7 +34,6 @@ Guide will include how to setup your raspberry pi 3 without monitor or keyboard
 -host to remote into the pi with (Windows Machine on the same network)
 	-win32diskimager
 	-putty
-	-winscp
 
 -linux based remote-server to backup recordings into (I used a ubuntu server running plex to view my content)
 - you can disable a backup host in the config files
@@ -217,7 +216,7 @@ commands
 
 	>sudo apt update && sudo apt upgrade -y
 
-	>sudo apt install git-core -y
+	>sudo apt install git -y (if that dont work try git-core)
 
 	>cd /home/pi/
 
@@ -225,37 +224,32 @@ commands
 
 	>cd DoorSecurity/
 
-	>sudo bash install.sh
+	>bash install.sh
 
 		setting up paramiko repo will take a while (paramiko credit to = paramiko, this is not owned byme)
 
-		the screen will pause displaying if the sensor is running after that it will reboot
+		after it has finished intalling you will end up in the config file where you can edit it to your requirements
 
-	should display doorsensor.service active!!!
 
-after reboot you will have to configure the program:
-	
-	>nano /home/pi/DoorSecurity/doormodules/config.py
+		key feautures are set to disabled and debugging will be switched on
 
-	key feautures will run disabled otherwise and debugging will be switched on
+		if you have a google account you are sending files from do this:
 
-	if you have a google account you are sending files from do this:
+			>go to google accounts and sign in with your from email address
 
-		>go to google accounts and sign in with your from email address
+			>turn on allow access to less secure apps
 
-		>turn on allow access to less secure apps
+			if that dont work do this:
 
-		if that dont work do this:
+				>enable 2 step verification for that email you are sending from
 
-			>enable 2 step verification for that email you are sending from
+				>go to app passwords
 
-			>go to app passwords
+				>create a new password for that device
 
-			>create a new password for that device
+				note down the 16 digit password and enter that into the password section in the config file
 
-			note down the 16 digit password and enter that into the password section in the config file
-
-	once the config file is filled out with how you want to use this program the script should run fine
+	once the config file is filled out with how you want to use this program the script should run fine. SHOULD!
 
 
 How I use this program
