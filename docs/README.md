@@ -11,9 +11,6 @@ example of usage:
 catching your annoying family members invade your personal space while your away/working!
 business service exit
 
-Todo:
--allow owner to turn off remote back up
-
 Next features:
 -use webcams mic to record voice
 -web controller
@@ -36,7 +33,7 @@ Guide will include how to setup your raspberry pi 3 without monitor or keyboard
 	-putty
 
 -linux based remote-server to backup recordings into (I used a ubuntu server running plex to view my content)
-- you can disable a backup host in the config files
+	-you can disable a backup host in the config files
 
 
 
