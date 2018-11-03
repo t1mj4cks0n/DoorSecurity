@@ -194,7 +194,7 @@ def recordCamera(timenow):
 		RecordSuccess = "Camera recording has started!"
 		RecordError = "Camera failed to Record"
 		RecordBash = "bash recordcamera.sh"
-		printdebug("Camera settings: runtime {}, fps {}, res {}, path {}".format(RecordBash, cam_runtime, cam_fps, cam_res, cam_path))
+		printdebug("Camera settings: runtime {}, fps {}, res {}, path {}".format(cam_runtime, cam_fps, cam_res, cam_path))
 		try:
 			subprocess.Popen(['./recordcamera.sh %s %s %s %s' %(cam_runtime,cam_fps,cam_res,cam_path)], shell=True)
 			printdebug(RecordSuccess)

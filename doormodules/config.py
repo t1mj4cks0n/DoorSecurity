@@ -108,10 +108,10 @@ archives = "/home/{}/DoorSecurity/logs/archives/".format(host_user)
 #                    REMOTE SERVER DIRECTORY SETTINGS
 #-----------------------------------------------------------------------------------#
 #;; change this to the full path of remote server films directory
-destVideoDir = "/home/{}/DoorSecurity/SecurityFilms/".format(remote_user)
+destVideoDir = "/home/{}/".format(remote_user)
 
 #;; change this to the full path of the remote server logs Directory
-destLogsDir = "/home/{}/DoorSecurity/Securitylogs".format(remote_user)
+destLogsDir = "/home/{}/".format(remote_user)
 
 
 #-----------------------------------------------------------------------------------#
