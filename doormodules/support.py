@@ -167,8 +167,6 @@ def moveFile(srcpath,destpath):
 
 def writeScpLog(srcfile,remote_user,remote_host,destpath): 
 	#used to write the line format for the scp log
-	createLogsDir()
-	createScpLogs()
 	print "writing to scp_log..."
 	line = "at {}, {} was copied to {}@{}:{}".format(getTime(),srcfile,remote_user,remote_host,destpath)
 	file = open(scplogspath, "a")
@@ -177,8 +175,6 @@ def writeScpLog(srcfile,remote_user,remote_host,destpath):
 
 def writeDebugLog(message): 
 	# used to write the line format for the debug log
-	createLogsDir()
-	createDoorLogs()
 	file = open(debuglogs, "a")
 	line = {"time": getTime(), "DEBUG":message}
 	file.write("\n" + str(line))
@@ -186,8 +182,6 @@ def writeDebugLog(message):
 
 def writeFile(state,timenow): 
 	# used to write the file format for the door log
-	createLogsDir()
-	createDebugLogs()
 	file = open(doorlogspath, "a")
 	line = {"time ": timenow, "State ": state}
 	file.write("\n" + str(line))
@@ -293,7 +287,7 @@ def notifyOwner(timenow):
 			except:
 				printdebug("could not archive {}".format(basefile))
 		else:
-			printdebug("could not send {} to {}@{}".format(basefile,remote_user,remote_host))
+			printdebug("could not send {} to {}@{}:{}".format(srcfullpath,remote_user,remote_host,remotepath))
 
 def sendLogs():
 	pass

@@ -8,7 +8,7 @@ from doormodules.config  import * # import all variables from config file
 
 # default variables for testing
 filepath = 	"/home/pi/DoorSecurity/test/test.txt"
-destpath = 	"/home/{}/test.txt".remote_user
+destpath = 	"/home/{}/test.txt".format(remote_user)
 
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())

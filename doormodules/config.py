@@ -41,7 +41,6 @@ notify_runtime = int("23")
 email_setup = False
 
 #;; change this to the email address you want notifications going to
-#notify_email = "emailname@emaildomain"
 notify_email = "emailtonotify@emaildomain"
 
 #;;change this to the smtp address of your email domain and their port# default google
