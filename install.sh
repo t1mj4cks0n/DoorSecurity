@@ -27,8 +27,7 @@ EOF
 su - $username -c "mkdir /home/$username/DoorSecurity/logs"
 su - $username -c "mkdir /home/$username/DoorSecurity/logs/archives"
 su - $username -c "mkdir /home/$username/DoorSecurity/logs/vids"
-cd /home/$username/DoorSecurity
-su - $username -c "chmod +x recordcamera.sh"
+su - $username -c "chmod +x /home/$username/DoorSecurity/recordcamera.sh"
 echo restarting services...
 sleep 5
 systemctl daemon-reload
