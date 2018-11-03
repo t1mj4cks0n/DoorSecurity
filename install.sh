@@ -39,4 +39,4 @@ systemctl status doorsensor.service
 echo going to config file now, install script will be removed after config edit.
 read y
 su - $username -c "nano /home/$username/DoorSecurity/doormodules/config.py"
-rm install.sh
+rm /home/$username/DoorSecurity/install.sh
