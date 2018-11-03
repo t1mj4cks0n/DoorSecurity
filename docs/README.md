@@ -237,6 +237,8 @@ commands
 
 		if you have a google account you are sending files from do this:
 
+			>keep the smtp port and domain the same
+
 			>go to google accounts and sign in with your from email address
 
 			>turn on allow access to less secure apps
@@ -250,6 +252,8 @@ commands
 				>create a new password for that device
 
 				note down the 16 digit password and enter that into the password section in the config file
+
+		if you use anything other than google, they may use other security features that you will have to research yourself which will allow emails to be sent from less secure devices.
 
 	once the config file is filled out with how you want to use this program the script should run fine. SHOULD!
 
