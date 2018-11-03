@@ -224,7 +224,7 @@ commands
 
 	>cd DoorSecurity/
 
-	>bash install.sh
+	>sudo bash install.sh
 
 		setting up paramiko repo will take a while (paramiko credit to = paramiko, this is not owned byme)
 
