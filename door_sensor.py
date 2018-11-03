@@ -8,7 +8,7 @@ logentry = support.writeFile
 printdebug = support.printdebug
 
 # creating logs if they dont already exist
-support.createLogsdir()
+support.createLogsDir()
 support.createDoorLogs()
 support.createScpLogs()
 support.createDebugLogs()
