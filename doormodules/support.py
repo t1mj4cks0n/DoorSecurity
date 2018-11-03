@@ -287,7 +287,7 @@ def notifyOwner(timenow):
 			except:
 				printdebug("could not archive {}".format(basefile))
 		else:
-			printdebug("could not send {} to {}@{}".format(basefile,remote_user,remote_host))
+			printdebug("could not send {} to {}@{}:{}".format(srcfullpath,remote_user,remote_host,remotepath))
 
 def sendLogs():
 	pass
