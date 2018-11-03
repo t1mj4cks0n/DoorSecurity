@@ -1,33 +1,22 @@
-#!/bin/sh
-echo "##########################################################"
-echo " 	installer for DoorSecurity"
-echo " 	this should be run as root with the sudo cmd"
-echo "##########################################################"
-echo \nYou are :$USER
-echo This should say root, what is your username? i.e pi
-read homeuser
-username=$homeuser
-echo You are $username@$hostname
-echo "##########################################################"
-echo 			install python and camera dependencies
-echo "##########################################################"
-apt install python-dev python-rpi.gpio -y
-apt install ffmpeg python-pip -y
+echo This is the installer
+echo Always run with the sudo cmd
+echo you are $USER
+echo you should be root but what is your username??
+read username
+echo your username is $username
+echo installing python and camera dependencies...
+sleep 5
+apt install python-dev python-rpi.gpio ffmpeg python-pip -y
 pip install pip-update
 pip install setuptools
-cd /home/$username/
+cd /home/$username
+echo installing paramiko and dependencies...
 sleep 5
-echo "##########################################################"
-echo 			install paramiko and dependencies
-echo "##########################################################"
-su - $username -c "git clone https://github.com/paramiko/paramiko"
-echo Installing paramiko dependencies and setting it up now
+su -  $username -c "git clone https://github.com/paramiko/paramiko"
 apt install build-essential libssl-dev libffi-dev -y
-cd /home/$username/paramiko && sudo python setup.py install
+cd /home/$username/paramiko && python setup.py install
+echo configuring file system...
 sleep 5
-echo "##########################################################"
-echo 				Configuring File system
-echo "##########################################################"
 cp /home/$username/DoorSecurity/confs/doorsensor.service /etc/systemd/system/doorsensor.service
 chmod +x /etc/systemd/system/doorsensor.service
 cat <<EOF >/root/start_door_sensor.bash
@@ -38,21 +27,16 @@ EOF
 su - $username -c "mkdir /home/$username/DoorSecurity/logs"
 su - $username -c "mkdir /home/$username/DoorSecurity/logs/archives"
 su - $username -c "mkdir /home/$username/DoorSecurity/logs/vids"
-cd /home/$username/DoorSecurity/
+cd /home/$username/DoorSecurity
 su - $username -c "chmod +x recordcamera.sh"
+echo restarting services...
 sleep 5
-echo "##########################################################"
-echo 				Restarting the Services
-echo "##########################################################"
 systemctl daemon-reload
 systemctl enable doorsensor.service
 systemctl start doorsensor.service
-echo doorsensor.service STATUS below, Q to carry on...
+echo PRESS Q to escape from status view
 systemctl status doorsensor.service
-echo opening nano on this file  /home/$username/DoorSecurity/doormodules/config.py\n fill this out to configure the program\n PRESS ENTER TO CONTINUE
-sleep 5
+echo going to config file now, install script will be removed after config edit.
+read y
 su - $username -c "nano /home/$username/DoorSecurity/doormodules/config.py"
 rm install.sh
-
-
-
