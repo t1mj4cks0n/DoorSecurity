@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time, datetime
 import sys, os
 from doormodules import support
+from threading import Thread
 
 # setting import module names
 logentry = support.writeFile 
@@ -33,8 +34,10 @@ def main():
             State = " OPEN "
             print State
             timenow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            support.recordCamera(timenow)
-            support.notifyOwner(timenow)
+            camerathread = Thread(target=support.recordCamera, args=(timenow,), name="Camera Thread")
+            camerathread.start()
+            noticethread = Thread(target=support.notifyOwner, args=(timenow,), name="Notification Thread")
+            noticethread.start()
             logentry(State,timenow)
 
         elif (Open != Closed):
